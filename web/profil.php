@@ -1,22 +1,12 @@
 <?php
 include('conf/other/header_1.php'); 
-
-
 ?>
 
 
-
-<?php include 'connect.php';
-$queryisadmin = "SELECT * FROM tbl_user WHERE username= '".$_SESSION['username']."' AND is_admin= 1";
-$runquery2=$connect->query($queryisadmin);
-
- if($runquery2->num_rows > 0) { 
-   while($row = mysqli_fetch_assoc($runquery2))
-		{
-	 $isadmin = $row['is_admin'] ; 
+<?php
+    if (isset($_SESSION['is_admin'])) {
+        $isadmin = 1;
     }
-    }
-    else { $isadmin = 0;} 
 ?>
 
 <!DOCTYPE html>

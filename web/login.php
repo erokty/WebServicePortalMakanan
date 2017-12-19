@@ -39,7 +39,7 @@
 			<h3 class="w3ls-title w3ls-title1">Login to your account</h3>  
 			<div class="login-agileinfo"> 
 				<form action="connect_login.php" method="post"> 
-					<input class="agile-ltext" type="text" name="username" placeholder="Username" required="">
+					<input class="agile-ltext" type="text" name="email" placeholder="email" required="">
 					<input class="agile-ltext" type="password" name="password" placeholder="Password" required="">
 					<div class="wthreelogin-text"> 
 						<ul> 
