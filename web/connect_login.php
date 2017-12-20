@@ -21,15 +21,16 @@ $result = json_decode($response->getBody()->getContents());
 
 if($result->status_code == 200) { 
     session_start();
-    $_SESSION['logged']=true;
-    $_SESSION['username']= $result->user->name;
-    $_SESSION['is_admin']=true;
+    $_SESSION['logged'] = true;
+    $_SESSION['username'] = $result->user->name;
+    $_SESSION['is_admin'] = true;
+    $_SESSION['access_token'] = $result->user->api_token;
     header("location: index.php");
 } 
 else {
     echo"Your username or password was incorrect.";
-    $_SESSION['logged']=false;
-    $_SESSION['is_admin']=false;
+    $_SESSION['logged'] = false;
+    $_SESSION['is_admin'] = false;
     header("location: login_1.php");
 }
 ?>

@@ -44,11 +44,27 @@ class ComposerStaticInit5e4a1371011e758b4e38e8d971474a02
         ),
     );
 
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/..' . '/league/color-extractor/src',
+    );
+
+    public static $prefixesPsr0 = array (
+        'c' => 
+        array (
+            'claviska' => 
+            array (
+                0 => __DIR__ . '/..' . '/claviska/simpleimage/src',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit5e4a1371011e758b4e38e8d971474a02::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit5e4a1371011e758b4e38e8d971474a02::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit5e4a1371011e758b4e38e8d971474a02::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5e4a1371011e758b4e38e8d971474a02::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
