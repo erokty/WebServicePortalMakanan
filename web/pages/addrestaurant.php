@@ -30,38 +30,28 @@
 // include('connect.php'); 
 include 'connectGuzzle.php';
 
-use claviska\SimpleImage;
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['restaurant_name']) && isset($_POST['restaurant_name']) && isset($_POST['restaurant_name'])) { 
         $restaurantname = $_POST['restaurant_name']; 
         $description = $_POST['description'];
-        $restoran_image = $_POST['restaurant_image'];
-
-        $tmpfname = tempnam("/temp", 'TempMage');
-        // $img = file_get_contents($url);
-        file_put_contents($tmpfname, $restoran_image);
-
-        $image = new SimpleImage();
-        $image->fromString($tmpfname);
-        $image->save('imgd/l'.$file_name);
-
-        var_dump($image);
+        $restoran_image = $_FILES['restaurant_image'];
         $client = new GuzzleHttp\Client();
+
+        if(!move_uploaded_file($_FILES['restaurant_image']['tmp_name'], 'upload/' . $_FILES['restaurant_image']['name'])){
+            die('Error uploading file - check destination is writeable.');
+        }
 
         $url = "http://localhost:8000/api/v1/restaurant/create";
 
         $header = array('Authorization'=>'Bearer ' . $_SESSION['access_token']);
-
-        $data = ['name' => $restaurantname, 'description' => $description];
 
         $response = $client->post($url, [
             'headers' => $header,
             'multipart' => [
                 [
                     'name' => 'image',
-                    'contents' => fopen($image, "r")
+                    'contents' => fopen('upload/' . $_FILES['restaurant_image']['name'], "r")
                 ],
                 [
                     'name' => 'name',
@@ -74,23 +64,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ]
         ]);
 
-        $a = fopen($restoran_image, "r");
-        var_dump($a);
-
         $result = json_decode($response->getBody()->getContents());
             // $sqlinsertreview="INSERT INTO tbl_restaurant(restoran_nama,description,restoran_image) VALUES ('$restaurantname','$description','file_get_contents($restoran_image)')";
              
-            var_dump($result);
             // if($result->status_code != 200) { 
             //     trigger_error('An error occured.');
             // } else {
-            //     echo '<meta http-equiv="refresh" content="1;url=profil.php?p=restaurantlist"/>';
+                echo '<meta http-equiv="refresh" content="1;url=profil.php?p=restaurantlist"/>';
             // }
         
     }
 } ?> 
 
-<form action="#" method="post"> 
+<form action="#" method="post" enctype="multipart/form-data"> 
     <div class="tableartikelpadding">
       <div class="table-responsive">
           <table>

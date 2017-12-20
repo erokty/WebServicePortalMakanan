@@ -1,6 +1,5 @@
 {
     "require": {
-        "guzzlehttp/guzzle": "^6.3",
-        "claviska/simpleimage": "^3.3"
+        "guzzlehttp/guzzle": "^6.3"
     }
 }
